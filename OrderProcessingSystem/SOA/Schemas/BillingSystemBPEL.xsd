@@ -1,0 +1,35 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://practice.com/OCT2023Pratice/BillingSystem/BillingSystemBPEL"
+     xmlns="http://www.w3.org/2001/XMLSchema">
+    <element name="BsRequst">
+        <complexType>
+            <sequence>
+                <element name="OraderId" type="integer"/>
+                <element name="iteaminfo" minOccurs="0" maxOccurs="unbounded">
+                    <complexType>
+                        <sequence>
+                            <element name="iteamName" type="string"/>
+                            <element name="iteamCost" type="integer"/>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="BsResponse">
+        <complexType>
+            <sequence>
+                <element name="OraderId" type="integer"/>
+                <element name="iteaminfo" minOccurs="0" maxOccurs="unbounded">
+                    <complexType>
+                        <sequence>
+                            <element name="iteamName" type="string"/>
+                            <element name="iteamCost" type="integer"/>
+                        </sequence>
+                    </complexType>
+                </element>
+                <element name="totalCost" type="integer"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

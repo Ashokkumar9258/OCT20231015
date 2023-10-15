@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="BillingSystemBPEL"
+     targetNamespace="http://practice.com/OCT2023Pratice/BillingSystem/BillingSystemBPEL"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://practice.com/OCT2023Pratice/BillingSystem/BillingSystemBPEL"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://LAPTOP-GVBVNCLO:7101/soa-infra/services/OCT2023/BillingSystem!1.0/WSDLs/BillingSystemBPEL.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="BillingSystemBPEL">
+        <plnk:role name="BillingSystemBPELProvider" portType="client:BillingSystemBPEL"/>
+        <plnk:role name="BillingSystemBPELRequester" portType="client:BillingSystemBPELCallback"/>
+    </plnk:partnerLinkType>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+         wsu:Id="wsaddr_policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+    </wsp:Policy>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://practice.com/OCT2023Pratice/BillingSystem/BillingSystemBPEL"
+                 schemaLocation="../Schemas/BillingSystemBPEL.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="BillingSystemBPELRequestMessage">
+        <wsdl:part name="payload" element="client:BsRequst"/>
+    </wsdl:message>
+    <wsdl:message name="BillingSystemBPELResponseMessage">
+        <wsdl:part name="payload" element="client:BsResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="BillingSystemBPEL">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:BillingSystemBPELRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="BillingSystemBPELCallback">
+        <wsdl:operation name="processResponse">
+            <wsdl:input message="client:BillingSystemBPELResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BillingSystemBPELBinding" type="client:BillingSystemBPEL">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wsaddr_policy"
+             wsdl:required="false"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="BillingSystemBPELCallbackBinding" type="client:BillingSystemBPELCallback">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="processResponse">
+            <soap:operation style="document" soapAction="processResponse"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="http://practice.com/OCT2023Pratice/BillingSystem/BillingSystemBPEL"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="billingsystembpel_client_ep">
+        <wsdl:port name="BillingSystemBPEL_pt" binding="client:BillingSystemBPELBinding">
+            <soap:address location="http://LAPTOP-GVBVNCLO:7101/soa-infra/services/OCT2023/BillingSystem/billingsystembpel_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

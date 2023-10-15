@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="CVSBPEL"
+     targetNamespace="http://practice.com/OCT2023Pratice/CardValidationSystem/CVSBPEL"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://practice.com/OCT2023Pratice/CardValidationSystem/CVSBPEL"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://LAPTOP-GVBVNCLO:7101/soa-infra/services/OCT2023/CardValidationSystem!1.0/WSDLs/CVSBPEL.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="CVSBPEL">
+        <plnk:role name="CVSBPELProvider" portType="client:CVSBPEL"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://practice.com/OCT2023Pratice/CardValidationSystem/CVSBPEL"
+                 schemaLocation="../Schemas/CVSBPEL.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="CVSBPELRequestMessage">
+        <wsdl:part name="payload" element="client:cardReq"/>
+    </wsdl:message>
+    <wsdl:message name="CVSBPELResponseMessage">
+        <wsdl:part name="payload" element="client:cardres"/>
+    </wsdl:message>
+    <wsdl:portType name="CVSBPEL">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:CVSBPELRequestMessage"/>
+            <wsdl:output message="client:CVSBPELResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CVSBPELBinding" type="client:CVSBPEL">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="cvsbpel_client_ep">
+        <wsdl:port name="CVSBPEL_pt" binding="client:CVSBPELBinding">
+            <soap:address location="http://LAPTOP-GVBVNCLO:7101/soa-infra/services/OCT2023/CardValidationSystem/cvsbpel_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
